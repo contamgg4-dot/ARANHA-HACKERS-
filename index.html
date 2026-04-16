@@ -2,60 +2,76 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Venda sua conta</title>
+  <title>Aranha TRADES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
     }
 
     body {
-      height: 100vh;
       background: url('https://wallpapercave.com/wp/wp2599594.jpg') no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      height: 100vh;
       color: white;
+      overflow-x: hidden;
     }
 
     /* camada escura */
     .overlay {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(6px);
+      z-index: 0;
     }
 
+    /* TEXTO CAINDO */
+    .logo {
+      position: absolute;
+      top: -100px;
+      width: 100%;
+      text-align: center;
+      font-size: 45px;
+      font-weight: bold;
+      animation: cair 2s ease forwards;
+      z-index: 2;
+    }
+
+    @keyframes cair {
+      to {
+        top: 80px;
+      }
+    }
+
+    /* container */
     .container {
       position: relative;
+      z-index: 2;
       text-align: center;
-      z-index: 1;
-      animation: fadeIn 1.5s ease;
+      top: 200px;
+      padding: 20px;
+      animation: fadeIn 2s ease;
     }
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
     }
 
-    p {
-      margin-bottom: 30px;
-      font-size: 18px;
-    }
-
+    /* botão */
     .btn {
       background: linear-gradient(45deg, #25D366, #128C7E);
       padding: 15px 30px;
-      font-size: 18px;
-      border: none;
       border-radius: 30px;
-      color: white;
-      cursor: pointer;
       text-decoration: none;
+      color: white;
+      font-size: 18px;
+      display: inline-block;
       transition: 0.3s;
       box-shadow: 0 0 15px rgba(37,211,102,0.6);
     }
@@ -65,16 +81,36 @@
       box-shadow: 0 0 25px rgba(37,211,102,1);
     }
 
+    /* seção info */
+    .info {
+      margin-top: 60px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* animação fade */
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
+
+    /* efeito teia */
+    .web {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100px;
+      background: white;
+      z-index: 1;
+    }
+
   </style>
 </head>
 
@@ -82,15 +118,25 @@
 
   <div class="overlay"></div>
 
+  <!-- teia -->
+  <div class="web"></div>
+
+  <!-- logo caindo -->
+  <div class="logo">🕷️ Aranha TRADES</div>
+
   <div class="container">
-    <h1>Entre em contato</h1>
-    <p>Se quiser vender sua conta 👇</p>
+    <h2>Venda ou troque sua conta com segurança</h2>
 
     <a class="btn" href="https://wa.me/5512991439382?text=Olá%20gostaria%20de%20trocar%20ou%20vender%20minha%20conta" target="_blank">
-      Aq venda sua conta
+      Entrar em contato
     </a>
+
+    <div class="info">
+      <p>✔️ Negociação rápida</p>
+      <p>✔️ Atendimento direto</p>
+      <p>✔️ Confiança e segurança</p>
+    </div>
   </div>
 
 </body>
 </html>
-``

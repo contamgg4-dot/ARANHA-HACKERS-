@@ -1,626 +1,285 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOXIC STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #060606;
+            --toxic-green: #00ff66;
+            --toxic-dark: #00220a;
+            --toxic-glow: rgba(0, 255, 102, 0.3);
+            --card-bg: #0f0f0f;
+        }
 
-<title>TOXIC STORE</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', monospace;
+        }
 
-<style>
+        body {
+            background-color: var(--bg-color);
+            color: #fff;
+            overflow-x: hidden;
+            background-image: linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
 
-:root{
-  --bg:#050914;
-  --card:#0f172a;
-  --neon:#ff003c;
-}
+        header {
+            text-align: center;
+            padding: 15px 10px;
+            border-bottom: 1px solid var(--toxic-green);
+            background: rgba(0,0,0,0.9);
+        }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--toxic-green);
+            letter-spacing: 2px;
+        }
 
-html{
-  scroll-behavior:smooth;
-}
+        .god-phrase {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 4px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
 
-body{
-  font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#050914,#02040a);
-  color:white;
-  overflow-x:hidden;
-}
+        .hacker-stats {
+            margin-top: 6px;
+            font-size: 0.7rem;
+            color: #666;
+        }
 
-/* FUNDO */
+        #client-counter {
+            color: var(--toxic-green);
+            font-weight: bold;
+        }
 
-#bg{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-}
+        .container {
+            max-width: 1000px;
+            margin: 15px auto;
+            padding: 0 10px;
+        }
 
-/* LOADING */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--toxic-green);
+            margin: 15px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-#loader{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:#000;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:9999;
-}
+        .main-carousel {
+            margin-bottom: 20px;
+        }
 
-#loader h1{
-  color:var(--neon);
-  margin-bottom:15px;
-  font-size:35px;
-}
+        .carousel-cell {
+            width: 200px;
+            height: 220px;
+            margin-right: 15px;
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
 
-.barra{
-  width:230px;
-  height:10px;
-  background:#111;
-  border-radius:20px;
-  overflow:hidden;
-}
+        .carousel-cell:hover {
+            border-color: var(--toxic-green);
+            box-shadow: 0 0 8px var(--toxic-glow);
+        }
 
-.progresso{
-  width:0%;
-  height:100%;
-  background:var(--neon);
-  box-shadow:0 0 20px var(--neon);
-}
+        .product-tag {
+            font-size: 0.6rem;
+            color: var(--toxic-green);
+            background: var(--toxic-dark);
+            padding: 2px 5px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 1px solid var(--toxic-green);
+        }
 
-/* NAV */
+        .product-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #fff;
+            line-height: 1.2;
+        }
 
-nav{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 20px;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(10px);
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--toxic-green);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
 
-.logo{
-  font-size:24px;
-  font-weight:bold;
-  color:var(--neon);
-  text-shadow:0 0 10px var(--neon);
-}
+        .btn-buy {
+            display: block;
+            text-align: center;
+            background: transparent;
+            color: var(--toxic-green);
+            border: 1px solid var(--toxic-green);
+            padding: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
 
-.menu-btn{
-  font-size:28px;
-  cursor:pointer;
-}
+        .btn-buy:hover {
+            background: var(--toxic-green);
+            color: #000;
+            box-shadow: 0 0 10px var(--toxic-green);
+        }
 
-.menu{
-  display:none;
-  position:absolute;
-  top:70px;
-  right:20px;
-  background:#111827;
-  padding:15px;
-  border-radius:15px;
-  box-shadow:0 0 20px rgba(255,0,60,0.4);
-}
+        .flickity-page-dots { bottom: -12px; }
+        .flickity-page-dots .dot { width: 6px; height: 6px; margin: 0 3px; background: #333; opacity: 1; }
+        .flickity-page-dots .dot.is-selected { background: var(--toxic-green); }
+        .flickity-button { width: 26px; height: 26px; background: rgba(0,0,0,0.7); }
+        .flickity-button:hover { background: var(--toxic-green); }
+        .flickity-prev-next-button.previous { left: -5px; }
+        .flickity-prev-next-button.next { right: -5px; }
 
-.menu a{
-  display:block;
-  color:white;
-  text-decoration:none;
-  margin:10px 0;
-}
-
-/* HERO */
-
-.hero{
-  text-align:center;
-  padding:90px 20px;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 18px;
-  border-radius:20px;
-  background:rgba(255,0,60,0.2);
-  margin-bottom:20px;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%{box-shadow:0 0 5px var(--neon);}
-  50%{box-shadow:0 0 25px var(--neon);}
-  100%{box-shadow:0 0 5px var(--neon);}
-}
-
-.hero h1{
-  font-size:45px;
-  margin-bottom:15px;
-}
-
-.hero span{
-  color:var(--neon);
-}
-
-.hero p{
-  color:#ccc;
-  margin-bottom:25px;
-  font-size:18px;
-}
-
-/* BOTÃO */
-
-.btn{
-  padding:15px 25px;
-  border:none;
-  border-radius:12px;
-  background:var(--neon);
-  color:white;
-  cursor:pointer;
-  font-size:16px;
-  transition:0.3s;
-  box-shadow:0 0 15px var(--neon);
-}
-
-.btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 30px var(--neon);
-}
-
-/* SECTION */
-
-.section{
-  padding:40px 20px;
-}
-
-.section h2{
-  text-align:center;
-  margin-bottom:25px;
-  font-size:30px;
-}
-
-/* GRID */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-
-/* CARD */
-
-.card{
-  background:rgba(15,23,42,0.8);
-  backdrop-filter:blur(10px);
-  padding:25px;
-  border-radius:20px;
-  border:1px solid rgba(255,0,60,0.3);
-  transition:0.3s;
-  text-align:center;
-}
-
-.card:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 0 25px var(--neon);
-}
-
-.card h3{
-  margin-bottom:10px;
-  font-size:26px;
-}
-
-.tempo{
-  font-size:20px;
-  margin-bottom:10px;
-  color:#ccc;
-}
-
-.price{
-  color:#00ff88;
-  font-size:28px;
-  margin-bottom:20px;
-  font-weight:bold;
-}
-
-.buy{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:12px;
-  background:#1f2937;
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
-  font-size:16px;
-}
-
-.buy:hover{
-  background:var(--neon);
-}
-
-/* FEATURES */
-
-.features{
-  display:grid;
-  gap:15px;
-}
-
-.feature{
-  background:#111827;
-  padding:20px;
-  border-radius:15px;
-  border:1px solid rgba(255,0,60,0.3);
-  text-align:center;
-  font-size:18px;
-}
-
-/* STATS */
-
-.stats{
-  display:flex;
-  justify-content:space-around;
-  text-align:center;
-  flex-wrap:wrap;
-  gap:20px;
-}
-
-.stats h2{
-  color:var(--neon);
-  font-size:35px;
-}
-
-/* WHATS */
-
-.chat{
-  position:fixed;
-  bottom:90px;
-  right:20px;
-  width:65px;
-  height:65px;
-  background:var(--neon);
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:30px;
-  cursor:pointer;
-  box-shadow:0 0 20px var(--neon);
-  animation:pulse 2s infinite;
-}
-
-/* FIXO */
-
-.fixo{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:#000;
-  padding:10px;
-}
-
-.fixo .btn{
-  width:100%;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:600px){
-
-.hero h1{
-  font-size:32px;
-}
-
-.stats{
-  flex-direction:column;
-}
-
-}
-
-</style>
+        footer {
+            text-align: center;
+            padding: 20px 10px;
+            color: #555;
+            font-size: 0.7rem;
+            margin-top: 30px;
+            border-top: 1px dashed #222;
+        }
+        
+        .god-footer {
+            color: #888;
+            margin-top: 5px;
+            font-size: 0.65rem;
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="bg"></canvas>
-
-<!-- LOADING -->
-
-<div id="loader">
-
-<h1>🔥 TOXIC STORE</h1>
-
-<div class="barra">
-<div class="progresso" id="progresso"></div>
-</div>
-
-</div>
-
-<!-- NAV -->
-
-<nav>
-
-<div class="logo">
-🔥 TOXIC STORE
-</div>
-
-<div class="menu-btn" onclick="toggleMenu()">
-☰
-</div>
-
-<div class="menu" id="menu">
-<a href="#">Início</a>
-<a href="#produtos">Produtos</a>
-<a href="#stats">Status</a>
-</div>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="hero">
-
-<div class="badge">
-+20K CLIENTES
-</div>
-
-<h1>
-DOMINE COM <span>TOXIC STORE</span>
-</h1>
-
-<p>
-DRIP CLIENT premium com entrega rápida.
-</p>
-
-<button class="btn" onclick="comprar('DRIP CLIENT')">
-🔥 VER TABELA
-</button>
-
-</section>
-
-<!-- PRODUTOS -->
-
-<section class="section" id="produtos">
-
-<h2>🔥 DRIP CLIENT</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>DRIP CLIENT</h3>
-<div class="tempo">1 DIA</div>
-<div class="price">R$13,50</div>
-<button class="buy" onclick="comprar('DRIP CLIENT 1 DIA')">Comprar</button>
-</div>
-
-<div class="card">
-<h3>DRIP CLIENT</h3>
-<div class="tempo">3 DIAS</div>
-<div class="price">R$28,00</div>
-<button class="buy" onclick="comprar('DRIP CLIENT 3 DIAS')">Comprar</button>
-</div>
-
-<div class="card">
-<h3>DRIP CLIENT</h3>
-<div class="tempo">7 DIAS</div>
-<div class="price">R$42,00</div>
-<button class="buy" onclick="comprar('DRIP CLIENT 7 DIAS')">Comprar</button>
-</div>
-
-<div class="card">
-<h3>DRIP CLIENT</h3>
-<div class="tempo">30 DIAS</div>
-<div class="price">R$90,00</div>
-<button class="buy" onclick="comprar('DRIP CLIENT 30 DIAS')">Comprar</button>
-</div>
-
-</div>
-
-</section>
-
-<!-- FEATURES -->
-
-<section class="section">
-
-<div class="features">
-
-<div class="feature">
-⚡ ENTREGA INSTANTÂNEA
-</div>
-
-<div class="feature">
-🔒 SEGURANÇA GARANTIDA
-</div>
-
-<div class="feature">
-💰 MELHOR PREÇO
-</div>
-
-</div>
-
-</section>
-
-<!-- STATS -->
-
-<section class="section" id="stats">
-
-<div class="stats">
-
-<div>
-<h2>+20K</h2>
-<p>Clientes</p>
-</div>
-
-<div>
-<h2>4.9⭐</h2>
-<p>Avaliações</p>
-</div>
-
-<div>
-<h2>24H</h2>
-<p>Suporte</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- WHATS -->
-
-<div class="chat" onclick="abrirWhats()">
-💬
-</div>
-
-<!-- BOTÃO FIXO -->
-
-<div class="fixo">
-
-<button class="btn" onclick="abrirWhats()">
-🔥 REV OFC DO TODDY
-</button>
-
-</div>
-
-<!-- SOM -->
-
-<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
-
-<script>
-
-/* MENU */
-
-function toggleMenu(){
-
-let m=document.getElementById("menu");
-
-m.style.display = m.style.display==="block" ? "none" : "block";
-
-}
-
-/* COMPRAR */
-
-function comprar(produto){
-
-let msg = "Olá, quero comprar " + produto;
-
-window.location.href =
-"https://wa.me/5512991439382?text=" + encodeURIComponent(msg);
-
-}
-
-/* WHATS */
-
-function abrirWhats(){
-
-window.location.href =
-"https://wa.me/5512991439382";
-
-}
-
-/* SOM */
-
-function playSound(){
-
-let som=document.getElementById("clickSound");
-
-som.currentTime=0;
-
-som.play();
-
-}
-
-document.querySelectorAll("button").forEach(btn=>{
-
-btn.addEventListener("click",playSound);
-
-});
-
-/* LOADING */
-
-let p=0;
-
-let barra=document.getElementById("progresso");
-
-let loading=setInterval(()=>{
-
-p += 5;
-
-barra.style.width=p+"%";
-
-if(p>=100){
-
-clearInterval(loading);
-
-document.getElementById("loader").style.display="none";
-
-}
-
-},100);
-
-/* FUNDO */
-
-const canvas=document.getElementById("bg");
-
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-for(let i=0;i<80;i++){
-
-particles.push({
-
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*3,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
-
-});
-
-}
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#ff003c";
-
-particles.forEach(p=>{
-
-ctx.beginPath();
-
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-
-ctx.fill();
-
-p.x += p.dx;
-p.y += p.dy;
-
-if(p.x<0||p.x>canvas.width) p.dx*=-1;
-if(p.y<0||p.y>canvas.height) p.dy*=-1;
-
-});
-
-requestAnimationFrame(animate);
-
-}
-
-animate();
-
-</script>
-
+    <header>
+        <h1>TOXIC STORE</h1>
+        <!-- FRASE DE DEUS NO TOPO -->
+        <div class="god-phrase">"Mil cairão ao teu lado, e dez mil à tua direita, mas tu não serás atingido." - Salmo 91:7</div>
+        <div class="hacker-stats">> <span id="client-counter">2483</span> INFECTADOS DO SERVIDOR ATIVOS</div>
+    </header>
+
+    <div class="container">
+        
+        <!-- SEÇÃO 1 -->
+        <h2 class="section-title">> AUXÍLIOS</h2>
+        <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": true, "pageDots": true }'>
+            
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">MOD</span>
+                    <h3 class="product-name">AUXÍLIO Pré-Venda</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 5</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Auxilio%20Toxic%20Pre%20Venda" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">MOD</span>
+                    <h3 class="product-name">AUXÍLIO (10 Mod)</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 10</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Auxilio%20Toxic%2010%20Mod" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">COMBO</span>
+                    <h3 class="product-name">Holograma + Auxílio</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 13</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Holograma%20%2B%20Auxilio" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SEÇÃO 2 -->
+        <h2 class="section-title">> CUSTOMIZAÇÃO</h2>
+        <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": true, "pageDots": true }'>
+            
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">CHAT</span>
+                    <h3 class="product-name">Bolha Personalizada</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 2</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Bolha%20Personalizada" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">PERFIL</span>
+                    <h3 class="product-name">Banner Hacker</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 4</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Banner%20Hacker" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+            <div class="carousel-cell">
+                <div>
+                    <span class="product-tag">COMBO</span>
+                    <h3 class="product-name">Bolha + Banner</h3>
+                </div>
+                <div>
+                    <div class="product-price">R$ 5</div>
+                    <a href="https://wa.me/5512991439382?text=Quero%20Combo%20Bolha%20%2B%20Banner" target="_blank" class="btn-buy">Injetar</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TOXIC STORE</p>
+        <!-- FRASE DE DEUS NO RODAPÉ -->
+        <p class="god-footer">Deus é fiel // Toda honra e glória a Ele.</p>
+    </footer>
+
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+        function iniciarContador() {
+            const el = document.getElementById('client-counter');
+            let num = 2483;
+            setInterval(() => {
+                num += Math.floor(Math.random() * 2) + 1;
+                el.innerText = num;
+            }, 4000);
+        }
+        window.onload = iniciarContador;
+    </script>
 </body>
 </html>

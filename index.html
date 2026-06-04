@@ -1,285 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOXIC STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    
-    <style>
-        :root {
-            --bg-color: #060606;
-            --toxic-green: #00ff66;
-            --toxic-dark: #00220a;
-            --toxic-glow: rgba(0, 255, 102, 0.3);
-            --card-bg: #0f0f0f;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Fira Code', monospace;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0f0f0f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: #fff;
-            overflow-x: hidden;
-            background-image: linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
-            background-size: 15px 15px;
-        }
+    .box {
+      text-align: center;
+      background: #1c1c1c;
+      padding: 30px;
+      border-radius: 12px;
+      width: 260px;
+    }
 
-        header {
-            text-align: center;
-            padding: 15px 10px;
-            border-bottom: 1px solid var(--toxic-green);
-            background: rgba(0,0,0,0.9);
-        }
+    h1 {
+      color: #00ff88;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
 
-        header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--toxic-green);
-            letter-spacing: 2px;
-        }
+    a {
+      display: block;
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        .god-phrase {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-top: 4px;
-            font-style: italic;
-            letter-spacing: 1px;
-        }
+    .zap {
+      background: #00ff88;
+      color: black;
+    }
 
-        .hacker-stats {
-            margin-top: 6px;
-            font-size: 0.7rem;
-            color: #666;
-        }
-
-        #client-counter {
-            color: var(--toxic-green);
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 15px auto;
-            padding: 0 10px;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--toxic-green);
-            margin: 15px 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .main-carousel {
-            margin-bottom: 20px;
-        }
-
-        .carousel-cell {
-            width: 200px;
-            height: 220px;
-            margin-right: 15px;
-            background: var(--card-bg);
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.2s ease;
-        }
-
-        .carousel-cell:hover {
-            border-color: var(--toxic-green);
-            box-shadow: 0 0 8px var(--toxic-glow);
-        }
-
-        .product-tag {
-            font-size: 0.6rem;
-            color: var(--toxic-green);
-            background: var(--toxic-dark);
-            padding: 2px 5px;
-            border-radius: 3px;
-            display: inline-block;
-            margin-bottom: 8px;
-            border: 1px solid var(--toxic-green);
-        }
-
-        .product-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: #fff;
-            line-height: 1.2;
-        }
-
-        .product-price {
-            font-size: 1.3rem;
-            color: var(--toxic-green);
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .btn-buy {
-            display: block;
-            text-align: center;
-            background: transparent;
-            color: var(--toxic-green);
-            border: 1px solid var(--toxic-green);
-            padding: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-buy:hover {
-            background: var(--toxic-green);
-            color: #000;
-            box-shadow: 0 0 10px var(--toxic-green);
-        }
-
-        .flickity-page-dots { bottom: -12px; }
-        .flickity-page-dots .dot { width: 6px; height: 6px; margin: 0 3px; background: #333; opacity: 1; }
-        .flickity-page-dots .dot.is-selected { background: var(--toxic-green); }
-        .flickity-button { width: 26px; height: 26px; background: rgba(0,0,0,0.7); }
-        .flickity-button:hover { background: var(--toxic-green); }
-        .flickity-prev-next-button.previous { left: -5px; }
-        .flickity-prev-next-button.next { right: -5px; }
-
-        footer {
-            text-align: center;
-            padding: 20px 10px;
-            color: #555;
-            font-size: 0.7rem;
-            margin-top: 30px;
-            border-top: 1px dashed #222;
-        }
-        
-        .god-footer {
-            color: #888;
-            margin-top: 5px;
-            font-size: 0.65rem;
-        }
-    </style>
+    .insta {
+      background: #ff2e88;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>TOXIC STORE</h1>
-        <!-- FRASE DE DEUS NO TOPO -->
-        <div class="god-phrase">"Mil cairão ao teu lado, e dez mil à tua direita, mas tu não serás atingido." - Salmo 91:7</div>
-        <div class="hacker-stats">> <span id="client-counter">2483</span> INFECTADOS DO SERVIDOR ATIVOS</div>
-    </header>
+  <div class="box">
+    <h1>Fale comigo</h1>
 
-    <div class="container">
-        
-        <!-- SEÇÃO 1 -->
-        <h2 class="section-title">> AUXÍLIOS</h2>
-        <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": true, "pageDots": true }'>
-            
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">MOD</span>
-                    <h3 class="product-name">AUXÍLIO Pré-Venda</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 5</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Auxilio%20Toxic%20Pre%20Venda" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
+    <a class="zap" href="https://wa.me/5512991439382" target="_blank">
+      💬 WhatsApp
+    </a>
 
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">MOD</span>
-                    <h3 class="product-name">AUXÍLIO (10 Mod)</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 10</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Auxilio%20Toxic%2010%20Mod" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
+    <a class="insta" href="https://www.instagram.com/wz__pedroxzx" target="_blank">
+      📸 Instagram
+    </a>
 
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">COMBO</span>
-                    <h3 class="product-name">Holograma + Auxílio</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 13</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Holograma%20%2B%20Auxilio" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
+  </div>
 
-        </div>
-
-        <!-- SEÇÃO 2 -->
-        <h2 class="section-title">> CUSTOMIZAÇÃO</h2>
-        <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": true, "pageDots": true }'>
-            
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">CHAT</span>
-                    <h3 class="product-name">Bolha Personalizada</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 2</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Bolha%20Personalizada" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
-
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">PERFIL</span>
-                    <h3 class="product-name">Banner Hacker</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 4</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Banner%20Hacker" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
-
-            <div class="carousel-cell">
-                <div>
-                    <span class="product-tag">COMBO</span>
-                    <h3 class="product-name">Bolha + Banner</h3>
-                </div>
-                <div>
-                    <div class="product-price">R$ 5</div>
-                    <a href="https://wa.me/5512991439382?text=Quero%20Combo%20Bolha%20%2B%20Banner" target="_blank" class="btn-buy">Injetar</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 TOXIC STORE</p>
-        <!-- FRASE DE DEUS NO RODAPÉ -->
-        <p class="god-footer">Deus é fiel // Toda honra e glória a Ele.</p>
-    </footer>
-
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script>
-        function iniciarContador() {
-            const el = document.getElementById('client-counter');
-            let num = 2483;
-            setInterval(() => {
-                num += Math.floor(Math.random() * 2) + 1;
-                el.innerText = num;
-            }, 4000);
-        }
-        window.onload = iniciarContador;
-    </script>
 </body>
 </html>
